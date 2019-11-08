@@ -1,0 +1,40 @@
+### zookeeper.*
+storm.zookeeper.servers:
+    - "zk9ss.prod.mediav.com"
+    - "zk10ss.prod.mediav.com"
+    - "zk11ss.prod.mediav.com"
+
+storm.zookeeper.port: 2191
+
+storm.zookeeper.root: "/storm-dev-1.1.0"
+
+### base
+storm.local.dir: "/opt/storm/data"
+
+### nimbus.* configs are for the master
+#nimbus.host: "nimbus-storm-rtut2.marathon.mesos.mediav.ss"
+nimbus.host: "nimbus-storm-storm-dev.marathon.mesos-shbt.test.adsys.qihoo.net"
+nimbus.thrift.port: 6670
+
+### supervisor.* configs are for node supervisors
+supervisor.slots.ports:
+    - 6700
+
+### worker.* configs are for task workers
+worker.childopts: "-Xms32g -Xmx32g -Xmn2g -XX:SurvivorRatio=4 -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=65  -XX:+HeapDumpOnOutOfMemoryError -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Xloggc:/opt/storm/logs/gc-%WORKER-ID%.%p.%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M"
+
+### ui.* configs are for the master
+ui.port: 6671
+
+storm.messaging.transport: "org.apache.storm.messaging.netty.Context"
+storm.messaging.netty.server_worker_threads: 3
+storm.messaging.netty.client_worker_threads: 3
+storm.messaging.netty.buffer_size: 5242880
+storm.messaging.netty.max_retries: 100
+storm.messaging.netty.max_wait_ms: 1000
+storm.messaging.netty.min_wait_ms: 100
+
+blobstore.dir: "/data/storm/storm-dev-mvad-1.1.0"
+supervisor.blobstore.class: "org.apache.storm.hdfs.blobstore.HdfsClientBlobStore"
+supervisor.blobstore.download.max_retries: 10
+nimbus.blobstore.class: "org.apache.storm.hdfs.blobstore.HdfsBlobStore"
